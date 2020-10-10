@@ -1,18 +1,16 @@
 #include "stack.h"
 
-typedef struct StackElement
-{
-    char value;
+struct StackElement {
+    int value;
     struct StackElement* next;
-} StackElement;
+};
 
-typedef struct Stack
-{
+struct Stack {
     struct StackElement* top;
     int size;
-} Stack;
+};
 
-StackElement* createStackElement(char value)
+StackElement* createStackElement(int value)
 {
     StackElement* newStackElement = (StackElement*)calloc(1, sizeof(StackElement));
     newStackElement->value = value;
@@ -31,14 +29,14 @@ StackElement* top(Stack* stack)
     return stack->top;
 }
 
-int size(Stack* stack)
+int getSize(Stack* stack)
 {
     return stack->size;
 }
 
 bool isEmpty(Stack* stack)
 {
-    return size(stack) == 0;
+    return getSize(stack) == 0;
 }
 
 void push(StackElement* newElement, Stack* stack)

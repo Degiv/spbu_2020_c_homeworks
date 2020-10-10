@@ -7,13 +7,13 @@
 typedef struct StackElement StackElement;
 typedef struct Stack Stack;
 
-StackElement* createStackElement(char value);
+StackElement* createStackElement(int value);
 
 Stack* createStack();
 
 StackElement* top(Stack* stack);
 
-int size(Stack* stack);
+int getSize(Stack* stack);
 
 bool isEmpty(Stack* stack);
 
