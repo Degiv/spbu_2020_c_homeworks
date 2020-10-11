@@ -71,35 +71,36 @@ int calculateExpression(char* expression)
 
 bool test1IsPassed()
 {
-    char expression[] = {"1 49 23 27 33 17 15 35 42 8 + + + + + + + + +"};
+    char expression[] = { "1 49 23 27 33 17 15 35 42 8 + + + + + + + + +" };
     return calculateExpression(expression) == 250;
 }
 
 bool test2IsPassed()
 {
-    char expression[] = {"1 2 3 * * 6 2 / /"};
+    char expression[] = { "1 2 3 * * 6 2 / /" };
     return calculateExpression(expression) == 2;
 }
 
 bool test3IsPassed()
 {
-    char expression[] = {"23 2 * 1000 100 - + 10 /"};
+    char expression[] = { "23 2 * 1000 100 - + 10 /" };
     return calculateExpression(expression) == 94;
 }
 
 bool test4IsPassed()
 {
-    char expression[] = {"1 2 3 4 5 * * * *"};
+    char expression[] = { "1 2 3 4 5 * * * *" };
     return calculateExpression(expression) == 120;
 }
 
 bool test5IsPassed()
 {
-    char expression[] = {"1004123 10000 / 10047538 100000 / 50029457 100000 / 300658 1000 / + + +"};
+    char expression[] = { "1004123 10000 / 10047538 100000 / 50029457 100000 / 300658 1000 / + + +" };
     return calculateExpression(expression) == 1000;
 }
 
-bool arePassed() {
+bool arePassed()
+{
     return test1IsPassed() && test2IsPassed() && test3IsPassed() && test4IsPassed() && test5IsPassed();
 }
 
