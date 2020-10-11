@@ -29,6 +29,16 @@ StackElement* top(Stack* stack)
     return stack->top;
 }
 
+int getValue(StackElement* stackElement)
+{
+    return stackElement->value;
+}
+
+void setValue(StackElement* stackElement, int value)
+{
+    stackElement->value = value;
+}
+
 int getSize(Stack* stack)
 {
     return stack->size;

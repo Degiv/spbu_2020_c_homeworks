@@ -13,6 +13,10 @@ Stack* createStack();
 
 StackElement* top(Stack* stack);
 
+int getValue(StackElement* stackElement);
+
+void setValue(StackElement* stackElement, int value);
+
 int getSize(Stack* stack);
 
 bool isEmpty(Stack* stack);
