@@ -29,6 +29,6 @@ ComplexNumber getDivision(ComplexNumber first, ComplexNumber second)
     ComplexNumber division;
     double denominator = second.real * second.real + second.imaginary * second.imaginary;
     division.real = (first.real * second.real + first.imaginary * second.imaginary) / denominator;
-    division.imaginary = (first.imaginary * second.real - first.real * second.imaginary) /  denominator;
+    division.imaginary = (first.imaginary * second.real - first.real * second.imaginary) / denominator;
     return division;
 }
