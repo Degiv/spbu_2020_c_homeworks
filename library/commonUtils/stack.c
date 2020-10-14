@@ -29,24 +29,24 @@ StackElement* top(Stack* stack)
     return stack->top;
 }
 
-int getValue(StackElement* stackElement)
+int getValueSE(StackElement* stackElement)
 {
     return stackElement->value;
 }
 
-void setValue(StackElement* stackElement, int value)
+void setValueSE(StackElement* stackElement, int value)
 {
     stackElement->value = value;
 }
 
-int getSize(Stack* stack)
+int getSizeOfStack(Stack* stack)
 {
     return stack->size;
 }
 
-bool isEmpty(Stack* stack)
+bool StackIsEmpty(Stack* stack)
 {
-    return getSize(stack) == 0;
+    return getSizeOfStack(stack) == 0;
 }
 
 void push(StackElement* newElement, Stack* stack)
@@ -58,7 +58,7 @@ void push(StackElement* newElement, Stack* stack)
 
 StackElement* pop(Stack* stack)
 {
-    if (isEmpty(stack)) {
+    if (StackIsEmpty(stack)) {
         return NULL;
     }
     StackElement* formerTop = stack->top;
@@ -70,7 +70,7 @@ StackElement* pop(Stack* stack)
 void freeStack(Stack* stack)
 {
     StackElement* elementToFree = pop(stack);
-    while (!isEmpty(stack)) {
+    while (!StackIsEmpty(stack)) {
         free(elementToFree);
         elementToFree = elementToFree->next;
     }

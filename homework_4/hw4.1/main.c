@@ -51,10 +51,10 @@ int calculateExpression(char* expression)
             currentComponent = createStackElement(getComponent(expression, &i));
             push(currentComponent, components);
 
-        } else if (isSign(expression[i]) && getSize(components) > 1) {
+        } else if (isSign(expression[i]) && getSizeOfStack(components) > 1) {
             StackElement* secondComponent = pop(components);
             StackElement* firstComponent = pop(components);
-            currentComponent = createStackElement(calculate(getValue(firstComponent), getValue(secondComponent), expression[i]));
+            currentComponent = createStackElement(calculate(getValueSE(firstComponent), getValueSE(secondComponent), expression[i]));
             push(currentComponent, components);
 
             free(secondComponent);
@@ -63,7 +63,7 @@ int calculateExpression(char* expression)
     }
 
     StackElement* lastComponent = pop(components);
-    int resultOfExpression = getValue(lastComponent);
+    int resultOfExpression = getValueSE(lastComponent);
     free(lastComponent);
     freeStack(components);
     return resultOfExpression;

@@ -13,13 +13,13 @@ Stack* createStack();
 
 StackElement* top(Stack* stack);
 
-int getValue(StackElement* stackElement);
+int getValueSE(StackElement* stackElement);
 
-void setValue(StackElement* stackElement, int value);
+void setValueSE(StackElement* stackElement, int value);
 
-int getSize(Stack* stack);
+int getSizeOfStack(Stack* stack);
 
-bool isEmpty(Stack* stack);
+bool StackIsEmpty(Stack* stack);
 
 void push(StackElement* newElement, Stack* stack);
 
