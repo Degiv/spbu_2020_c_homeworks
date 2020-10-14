@@ -114,7 +114,7 @@ int main()
 
     char expression[MAX_SIZE_OF_EXPRESSION] = { ' ' };
     printf("Input expression in postfix notation:\n");
-    scanf("%1000[^\n]", expression); // 1000 is MAX_SIZE_OF_EXPRESSION
+    fgets(expression, MAX_SIZE_OF_EXPRESSION, stdin);
 
     printf("Result is: %d", calculateExpression(expression));
 
