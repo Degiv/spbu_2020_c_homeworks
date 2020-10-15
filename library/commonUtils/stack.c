@@ -1,7 +1,8 @@
 #include "stack.h"
+#include "stdio.h"
 
 struct StackElement {
-    int value;
+    double value;
     struct StackElement* next;
 };
 
@@ -10,7 +11,7 @@ struct Stack {
     int size;
 };
 
-StackElement* createStackElement(int value)
+StackElement* createStackElement(double value)
 {
     StackElement* newStackElement = (StackElement*)calloc(1, sizeof(StackElement));
     newStackElement->value = value;
@@ -29,12 +30,12 @@ StackElement* top(Stack* stack)
     return stack->top;
 }
 
-int getValueSE(StackElement* stackElement)
+double getValueSE(StackElement* stackElement)
 {
     return stackElement->value;
 }
 
-void setValueSE(StackElement* stackElement, int value)
+void setValueSE(StackElement* stackElement, double value)
 {
     stackElement->value = value;
 }
@@ -75,4 +76,14 @@ void freeStack(Stack* stack)
         elementToFree = elementToFree->next;
     }
     free(stack);
+}
+
+void showStack(Stack* stack)
+{
+    StackElement* iterator = stack->top;
+    while (iterator != NULL) {
+        printf("%f", iterator->value);
+        iterator = iterator->next;
+    }
+    printf("\n");
 }

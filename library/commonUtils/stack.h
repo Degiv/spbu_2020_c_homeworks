@@ -7,15 +7,15 @@
 typedef struct StackElement StackElement;
 typedef struct Stack Stack;
 
-StackElement* createStackElement(int value);
+StackElement* createStackElement(double value);
 
 Stack* createStack();
 
 StackElement* top(Stack* stack);
 
-int getValueSE(StackElement* stackElement);
+double getValueSE(StackElement* stackElement);
 
-void setValueSE(StackElement* stackElement, int value);
+void setValueSE(StackElement* stackElement, double value);
 
 int getSizeOfStack(Stack* stack);
 
@@ -26,5 +26,7 @@ void push(StackElement* newElement, Stack* stack);
 StackElement* pop(Stack* stack);
 
 void freeStack(Stack* stack);
+
+void showStack(Stack* stack);
 
 #endif //SPBU_2020_C_HOMEWORKS_STACK_H
