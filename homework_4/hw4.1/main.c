@@ -26,15 +26,15 @@ double parseComponent(char* expression, int* position)
     return component;
 }
 
-double calculate(double firstComponent, double secondComponent, char operator)
+double calculate(double firstComponent, double secondComponent, char operatorSymbol)
 {
-    if (operator == '+') {
+    if (operatorSymbol == '+') {
         return firstComponent + secondComponent;
-    } else if (operator == '-') {
+    } else if (operatorSymbol == '-') {
         return firstComponent - secondComponent;
-    } else if (operator == '*') {
+    } else if (operatorSymbol == '*') {
         return firstComponent * secondComponent;
-    } else if (operator == '/' && secondComponent != 0) {
+    } else if (operatorSymbol == '/' && secondComponent != 0) {
         return firstComponent / secondComponent;
     }
     return 0;
