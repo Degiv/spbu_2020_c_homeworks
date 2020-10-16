@@ -40,7 +40,7 @@ int getExponent(int* binaryCode)
 {
     int offsetExponent = 0;
     for (int i = 0; i < exponentSize; ++i) {
-        offsetExponent += binaryCode[1 + i] * exponention(2, exponentSize - i - 1);
+        offsetExponent += binaryCode[1 + i] * exponention(2.0, (double)(exponentSize - i - 1));
     }
     return offsetExponent - exponentAddition;
 }
