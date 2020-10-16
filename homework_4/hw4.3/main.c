@@ -16,7 +16,7 @@ int exponention(int number, int exponent)
 
 int* getBinary(int number)
 {
-    int* binary =  calloc(sizeof(int) * byteSize, sizeof(int));
+    int* binary = calloc(sizeof(int) * byteSize, sizeof(int));
     unsigned char* bytes = (unsigned char*)&number;
 
     for (int i = numOfBytes - 1; i >= 0; --i) {
