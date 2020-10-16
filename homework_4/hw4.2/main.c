@@ -36,7 +36,7 @@ int* getBinaryCode(double number)
     return code;
 }
 
-int getExponent(int *binaryCode)
+int getExponent(int* binaryCode)
 {
     int offsetExponent = 0;
     for (int i = 0; i < exponentSize; ++i) {
@@ -45,7 +45,7 @@ int getExponent(int *binaryCode)
     return offsetExponent - exponentAddition;
 }
 
-double getMantissa(int *binaryCode)
+double getMantissa(int* binaryCode)
 {
     double mantissa = 1;
     for (int i = 1; i <= mantissaSize; ++i) {
