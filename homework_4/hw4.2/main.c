@@ -11,7 +11,7 @@
 
 int exponention(int number, int exponent)
 {
-    if (exponent == 0)
+    if (exponent <= 0)
         return 1;
     if (exponent % 2 == 0)
         return exponention(number * number, exponent / 2);
@@ -49,7 +49,7 @@ double getMantissa(int* binaryCode)
 {
     double mantissa = 1;
     for (int i = 1; i <= mantissaSize; ++i) {
-        mantissa += binaryCode[exponentSize + i] * pow(2, -i);
+        mantissa += (double)binaryCode[exponentSize + i] * pow(2, -i);
     }
     return mantissa;
 }
@@ -65,7 +65,7 @@ void showBinaryCode(int* code)
 void printDouble(double number)
 {
     if (number == 0) {
-        printf("0");
+        printf("Result: 0");
         return;
     }
 

@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.17)
 project(spbu_2020_c_homeworks C)
 
 set(CMAKE_C_STANDARD 11)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 ")
 
 set(SOURCE_LIB
     library/commonUtils/numericOperations.c
@@ -36,3 +35,4 @@ target_link_libraries(hw3.1 library)
 add_executable(hw3.2 homework_3/hw3.2/main.c)
 target_link_libraries(hw3.2 library)
 add_executable(hw4.2 homework_4/hw4.2/main.c)
+target_link_libraries(hw4.2 m)
