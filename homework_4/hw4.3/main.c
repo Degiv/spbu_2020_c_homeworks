@@ -16,8 +16,8 @@ int exponention(int number, int exponent)
 
 int* getBinary(int number)
 {
-    int *binary =  calloc(sizeof(int) * byteSize, sizeof(int));
-    unsigned char *bytes = (unsigned char*)&number;
+    int* binary =  calloc(sizeof(int) * byteSize, sizeof(int));
+    unsigned char* bytes = (unsigned char*)&number;
 
     for (int i = numOfBytes - 1; i >= 0; --i) {
         int mask = 0x80;
@@ -35,7 +35,7 @@ int* getBinary(int number)
 
 int* sum(int* a, int* b)
 {
-    int *sum = calloc(sizeof(int) * numOfBytes, sizeof(int));
+    int* sum = calloc(sizeof(int) * numOfBytes, sizeof(int));
     sum[sizeof(int) * byteSize - 1] = 0;
     for (int i = sizeof(int) * byteSize - 1; i >= 0; --i) {
         sum[i] += a[i] + b[i];
