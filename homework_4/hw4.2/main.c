@@ -1,6 +1,6 @@
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 
 #define byteSize 8
 #define doubleSize 64
@@ -21,7 +21,7 @@ int exponention(int number, int exponent)
 int* getBinaryCode(double number)
 {
     int* code = calloc(doubleSize, sizeof(int));
-    unsigned char* bytes = (unsigned char*) &number;
+    unsigned char* bytes = (unsigned char*)&number;
 
     for (int i = numOfBytes - 1; i >= 0; --i) {
         int mask = 0x80;
