@@ -3,7 +3,6 @@
 #include <stdlib.h>
 
 #define byteSize 8
-#define numOfBytes 4
 
 int exponention(int number, int exponent)
 {
@@ -19,13 +18,13 @@ int* getBinary(int number)
     int* binary = calloc(sizeof(int) * byteSize, sizeof(int));
     unsigned char* bytes = (unsigned char*)&number;
 
-    for (int i = numOfBytes - 1; i >= 0; --i) {
+    for (int i = sizeof(int) - 1; i >= 0; --i) {
         int mask = 0x80;
         for (int j = 0; j < byteSize; ++j) {
             if (mask & bytes[i])
-                binary[(numOfBytes - i - 1) * byteSize + j] = 1;
+                binary[(sizeof(int) - i - 1) * byteSize + j] = 1;
             else
-                binary[(numOfBytes - i - 1) * byteSize + j] = 0;
+                binary[(sizeof(int) - i - 1) * byteSize + j] = 0;
             mask >>= 1;
         }
     }
@@ -33,9 +32,9 @@ int* getBinary(int number)
     return binary;
 }
 
-int* sum(int* a, int* b)
+int* getSum(int* a, int* b)
 {
-    int* sum = calloc(sizeof(int) * numOfBytes, sizeof(int));
+    int* sum = calloc(sizeof(int) * byteSize, sizeof(int));
     sum[sizeof(int) * byteSize - 1] = 0;
     for (int i = sizeof(int) * byteSize - 1; i >= 0; --i) {
         sum[i] += a[i] + b[i];
@@ -86,16 +85,16 @@ int main()
 
     int* binaryA = getBinary(a);
     int* binaryB = getBinary(b);
-    printf("Binary code of first number is: ");
+    printf("Binary code of first number: ");
     showBinary(binaryA);
-    printf("Binary code of second number is: ");
+    printf("Binary code of second number: ");
     showBinary(binaryB);
 
-    int* binarySum = sum(binaryA, binaryB);
+    int* binarySum = getSum(binaryA, binaryB);
     printf("Binary code of sum: ");
     showBinary(binarySum);
 
-    printf("Sum is: %d", getDecimal(binarySum));
+    printf("Sum: %d", getDecimal(binarySum));
 
     free(binaryA);
     free(binaryB);
