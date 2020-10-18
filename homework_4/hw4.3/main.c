@@ -1,42 +1,15 @@
+#include "../../library/commonUtils/binaryOperations.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-#define byteSize 8
-
-int exponention(int number, int exponent)
-{
-    if (exponent == 0)
-        return 1;
-    if (exponent % 2 == 0)
-        return exponention(number * number, exponent / 2);
-    return number * exponention(number, exponent - 1);
-}
-
-int* getBinary(int number)
-{
-    int* binary = calloc(sizeof(int) * byteSize, sizeof(int));
-    unsigned char* bytes = (unsigned char*)&number;
-
-    for (int i = sizeof(int) - 1; i >= 0; --i) {
-        int mask = 0x80;
-        for (int j = 0; j < byteSize; ++j) {
-            if (mask & bytes[i])
-                binary[(sizeof(int) - i - 1) * byteSize + j] = 1;
-            else
-                binary[(sizeof(int) - i - 1) * byteSize + j] = 0;
-            mask >>= 1;
-        }
-    }
-
-    return binary;
-}
+#define BITS_PER_BYTE 8
 
 int* getSum(int* a, int* b)
 {
-    int* sum = calloc(sizeof(int) * byteSize, sizeof(int));
-    sum[sizeof(int) * byteSize - 1] = 0;
-    for (int i = sizeof(int) * byteSize - 1; i >= 0; --i) {
+    int* sum = calloc(sizeof(int) * BITS_PER_BYTE, sizeof(int));
+    sum[sizeof(int) * BITS_PER_BYTE - 1] = 0;
+    for (int i = sizeof(int) * BITS_PER_BYTE - 1; i >= 0; --i) {
         sum[i] += a[i] + b[i];
         if (i != 0)
             sum[i - 1] = sum[i] / 2;
@@ -45,7 +18,7 @@ int* getSum(int* a, int* b)
 
     if (a[0] == 1 && b[0] == 1) {
         int i = 0;
-        for (i = sizeof(int) * byteSize - 1; sum[i] == 0; --i) {
+        for (i = sizeof(int) * BITS_PER_BYTE - 1; sum[i] == 0; --i) {
             sum[i] = 1;
         }
         sum[i] = 0;
@@ -58,10 +31,12 @@ int getDecimal(int* binary)
 {
     int decimal = 0;
     bool isNegative = binary[0];
-    for (int i = 1; i < sizeof(int) * byteSize; ++i) {
+    int multiplier = 1 << sizeof(int) * BITS_PER_BYTE - 2;
+    for (int i = 1; i < sizeof(int) * BITS_PER_BYTE; ++i) {
         if (isNegative)
             binary[i] = (binary[i] + 1) % 2;
-        decimal += binary[i] * exponention(2, sizeof(int) * byteSize - i - 1);
+        decimal += binary[i] * multiplier;
+        multiplier >>= 1;
     }
     if (isNegative)
         decimal *= -1;
@@ -70,7 +45,7 @@ int getDecimal(int* binary)
 
 void showBinary(int* binary)
 {
-    for (int i = 0; i < sizeof(int) * byteSize; ++i) {
+    for (int i = 0; i < sizeof(int) * BITS_PER_BYTE; ++i) {
         printf("%d", binary[i]);
     }
     printf("\n");
@@ -83,8 +58,8 @@ int main()
     printf("Enter two numbers:\n");
     scanf("%d %d", &a, &b);
 
-    int* binaryA = getBinary(a);
-    int* binaryB = getBinary(b);
+    int* binaryA = getBinaryCodeInt(a);
+    int* binaryB = getBinaryCodeInt(b);
     printf("Binary code of first number: ");
     showBinary(binaryA);
     printf("Binary code of second number: ");
