@@ -13,16 +13,18 @@ struct Stack {
 
 StackElement* createStackElement(double value)
 {
-    StackElement* newStackElement = (StackElement*)calloc(1, sizeof(StackElement));
+    StackElement* newStackElement = (StackElement*)malloc(sizeof(StackElement));
     newStackElement->value = value;
     newStackElement->next = NULL;
+    return newStackElement;
 }
 
 Stack* createStack()
 {
-    Stack* newStack = (Stack*)calloc(1, sizeof(struct Stack));
+    Stack* newStack = (Stack*)malloc(sizeof(Stack));
     newStack->size = 0;
     newStack->top = NULL;
+    return newStack;
 }
 
 StackElement* top(Stack* stack)
