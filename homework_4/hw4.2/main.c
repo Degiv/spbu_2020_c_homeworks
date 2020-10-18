@@ -1,35 +1,23 @@
-#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-#define byteSize 8
-#define doubleSize 64
-#define numOfBytes 8
-#define exponentAddition 1023
-#define exponentSize 11
-#define mantissaSize 52
-
-int exponention(int number, int exponent)
-{
-    if (exponent <= 0)
-        return 1;
-    if (exponent % 2 == 0)
-        return exponention(number * number, exponent / 2);
-    return number * exponention(number, exponent - 1);
-}
+#define BITS_PER_BYTE 8
+#define EXPONENT_ADDITION 1023
+#define EXPONENT_SIZE 11
+#define MANTISSA_SIZE 52
 
 int* getBinaryCode(double number)
 {
-    int* code = calloc(doubleSize, sizeof(int));
+    int* code = calloc(sizeof(double) * BITS_PER_BYTE, sizeof(int));
     unsigned char* bytes = (unsigned char*)&number;
 
-    for (int i = numOfBytes - 1; i >= 0; --i) {
+    for (int i = sizeof(double) - 1; i >= 0; --i) {
         int mask = 0x80;
-        for (int j = 0; j < byteSize; ++j) {
+        for (int j = 0; j < BITS_PER_BYTE; ++j) {
             if (mask & bytes[i])
-                code[(numOfBytes - i - 1) * byteSize + j] = 1;
+                code[(sizeof(double) - i - 1) * BITS_PER_BYTE + j] = 1;
             else
-                code[(numOfBytes - i - 1) * byteSize + j] = 0;
+                code[(sizeof(double) - i - 1) * BITS_PER_BYTE + j] = 0;
             mask >>= 1;
         }
     }
@@ -39,24 +27,28 @@ int* getBinaryCode(double number)
 int getExponent(int* binaryCode)
 {
     int offsetExponent = 0;
-    for (int i = 0; i < exponentSize; ++i) {
-        offsetExponent += binaryCode[1 + i] * exponention(2.0, (double)(exponentSize - i - 1));
+    unsigned long long multiplier = 1 << EXPONENT_SIZE - 1;
+    for (int i = 0; i < EXPONENT_SIZE; ++i) {
+        offsetExponent += binaryCode[1 + i] * multiplier;
+        multiplier >>= 1;
     }
-    return offsetExponent - exponentAddition;
+    return offsetExponent - EXPONENT_ADDITION;
 }
 
 double getMantissa(int* binaryCode)
 {
     double mantissa = 1;
-    for (int i = 1; i <= mantissaSize; ++i) {
-        mantissa += (double)binaryCode[exponentSize + i] * pow(2, -i);
+    unsigned long long divider = (unsigned long long)1 << MANTISSA_SIZE;
+    for (int i = MANTISSA_SIZE; i > 0; --i) {
+        mantissa += (double)(binaryCode[EXPONENT_SIZE + i]) / (double)divider;
+        divider >>= 1;
     }
     return mantissa;
 }
 
 void showBinaryCode(int* code)
 {
-    for (int i = 0; i < doubleSize; ++i) {
+    for (int i = 0; i < sizeof(double) * BITS_PER_BYTE; ++i) {
         printf("%d", code[i]);
     }
     printf("\n");
