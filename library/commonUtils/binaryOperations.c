@@ -1,5 +1,4 @@
 #include "binaryOperations.h"
-#include <stdio.h>
 #include <stdlib.h>
 
 #define BITS_PER_BYTE 8
