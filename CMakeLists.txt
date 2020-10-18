@@ -10,6 +10,7 @@ set(SOURCE_LIB
     library/commonUtils/heap.c
     library/commonUtils/arrayOperations.c
     library/commonUtils/mysorts.c
+    library/commonUtils/binaryOperations.c
 )
 add_library(library ${SOURCE_LIB})
 
@@ -35,3 +36,5 @@ target_link_libraries(hw3.1 library)
 add_executable(hw3.2 homework_3/hw3.2/main.c)
 target_link_libraries(hw3.2 library)
 add_executable(hw4.3 homework_4/hw4.3/main.c)
+add_executable(hw4.2 homework_4/hw4.2/main.c)
+target_link_libraries(hw4.2 library)
