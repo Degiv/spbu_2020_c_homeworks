@@ -20,4 +20,3 @@ int* getBinaryCode(double number)
     }
     return code;
 }
-
