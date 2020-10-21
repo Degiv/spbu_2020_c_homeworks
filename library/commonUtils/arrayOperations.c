@@ -20,7 +20,7 @@ char* createString()
     while (currentSymbol != '\n') {
         if (currentIndex > size - 2) {
             int newSize = size * 2;
-            realloc(string, newSize * (sizeof(char)));
+            string = realloc(string, newSize * (sizeof(char)));
             memset(&string[size], ' ', size * (sizeof(char)));
             size = newSize;
         }
