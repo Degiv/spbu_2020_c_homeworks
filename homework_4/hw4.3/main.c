@@ -5,6 +5,26 @@
 
 #define BITS_PER_BYTE 8
 
+void showBinaryCode(int* binaryCode)
+{
+    for (int i = 0; i < sizeof(int) * BITS_PER_BYTE; ++i) {
+        printf("%d", binaryCode[i]);
+    }
+    printf("\n");
+}
+
+void decrease(int* binaryCode)
+{
+    int i = sizeof(int) * BITS_PER_BYTE - 1;
+    while (i >= 0 && binaryCode[i] == 0) {
+        binaryCode[i] = 1;
+        --i;
+    }
+    if (i >= 0) {
+        binaryCode[i] = 0;
+    }
+}
+
 int* getSum(int* a, int* b)
 {
     int* sum = calloc(sizeof(int) * BITS_PER_BYTE, sizeof(int));
@@ -16,39 +36,27 @@ int* getSum(int* a, int* b)
         sum[i] %= 2;
     }
 
-    if (a[0] == 1 && b[0] == 1) {
-        int i = 0;
-        for (i = sizeof(int) * BITS_PER_BYTE - 1; sum[i] == 0; --i) {
-            sum[i] = 1;
-        }
-        sum[i] = 0;
-    }
-
     return sum;
 }
 
-int getDecimal(int* binary)
+int getDecimal(int* binaryCode)
 {
     int decimal = 0;
-    bool isNegative = binary[0];
+    bool isNegative = (binaryCode[0] == 1);
+    if (isNegative) {
+        decrease(binaryCode);
+    }
+
     int multiplier = 1 << sizeof(int) * BITS_PER_BYTE - 2;
     for (int i = 1; i < sizeof(int) * BITS_PER_BYTE; ++i) {
         if (isNegative)
-            binary[i] = (binary[i] + 1) % 2;
-        decimal += binary[i] * multiplier;
+            binaryCode[i] = (binaryCode[i] + 1) % 2;
+        decimal += binaryCode[i] * multiplier;
         multiplier >>= 1;
     }
     if (isNegative)
         decimal *= -1;
     return decimal;
-}
-
-void showBinary(int* binary)
-{
-    for (int i = 0; i < sizeof(int) * BITS_PER_BYTE; ++i) {
-        printf("%d", binary[i]);
-    }
-    printf("\n");
 }
 
 int main()
@@ -61,13 +69,13 @@ int main()
     int* binaryA = getBinaryCodeInt(a);
     int* binaryB = getBinaryCodeInt(b);
     printf("Binary code of first number: ");
-    showBinary(binaryA);
+    showBinaryCode(binaryA);
     printf("Binary code of second number: ");
-    showBinary(binaryB);
+    showBinaryCode(binaryB);
 
     int* binarySum = getSum(binaryA, binaryB);
     printf("Binary code of sum: ");
-    showBinary(binarySum);
+    showBinaryCode(binarySum);
 
     printf("Sum: %d", getDecimal(binarySum));
 
