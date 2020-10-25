@@ -34,8 +34,7 @@ int main()
     printf("\nNumber '-2' added:\n");
     printTreePreOrder(tree);
 
-    if (exists(tree, 12) && exists(tree, 7) && exists(tree, 9) && exists(tree, -2) && exists(tree, 1)
-    && exists(tree, 21) && exists(tree, 15) && !exists(tree, 0)) {
+    if (exists(tree, 12) && exists(tree, 7) && exists(tree, 9) && exists(tree, -2) && exists(tree, 1) && exists(tree, 21) && exists(tree, 15) && !exists(tree, 0)) {
         printf("\n'exists()' works fine\n");
     } else {
         printf("\nSomething went wrong with 'exists()'\n");
