@@ -3,23 +3,22 @@
 
 #include <stdbool.h>
 
-typedef struct BinarySearchTreeNode BinarySearchTreeNode;
+typedef struct BinarySearchTreeNode {
+    int data;
+    int counter;
+    struct BinarySearchTreeNode* leftChild;
+    struct BinarySearchTreeNode* rightChild;
+} BinarySearchTreeNode;
 
-typedef struct BinarySearchTree BinarySearchTree;
+typedef struct BinarySearchTree {
+    BinarySearchTreeNode* root;
+} BinarySearchTree;
 
 BinarySearchTree* createBinarySearchTree();
-
-bool isLeaf(BinarySearchTreeNode* node);
 
 bool isEmpty(BinarySearchTree* tree);
 
 bool addToTree(BinarySearchTree* tree, int valueToAdd);
-
-void removeIncompleteNode(BinarySearchTreeNode** nodeToRemove, BinarySearchTreeNode* newPtr);
-
-void removeCompleteNode(BinarySearchTreeNode** nodeToRemove);
-
-void removeNode(BinarySearchTreeNode** nodeToRemove);
 
 bool removeFromTree(BinarySearchTree* tree, int valueToRemove);
 
