@@ -3,6 +3,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+struct BinarySearchTreeNode {
+    int data;
+    int counter;
+    struct BinarySearchTreeNode* leftChild;
+    struct BinarySearchTreeNode* rightChild;
+};
+
+struct BinarySearchTree {
+    BinarySearchTreeNode* root;
+};
+
 BinarySearchTreeNode* createBinarySearchTreeNode(int data)
 {
     BinarySearchTreeNode* node = (BinarySearchTreeNode*)malloc(sizeof(BinarySearchTreeNode));
