@@ -83,7 +83,7 @@ void removeCompleteNode(BinarySearchTreeNode** nodeToRemove)
     }
     (*nodeToRemove)->data = (*nodeForReplace)->data;
     (*nodeToRemove)->counter = (*nodeForReplace)->counter;
-    removeNode(nodeForReplace);
+    removeNode(*nodeForReplace);
 }
 
 void removeNode(BinarySearchTreeNode** nodeToRemove)
