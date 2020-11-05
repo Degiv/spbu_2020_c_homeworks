@@ -25,7 +25,6 @@ void outputArray(int* numbers, int sizeOfArray)
     printf("\n");
 }
 
-  
 char* createString()
 {
     int size = 1;
