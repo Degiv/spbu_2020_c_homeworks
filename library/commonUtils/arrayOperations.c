@@ -23,6 +23,7 @@ void outputArray(int* numbers, int sizeOfArray)
         printf("%d ", numbers[i]);
     }
     printf("\n");
+}
 
   
 char* createString()
