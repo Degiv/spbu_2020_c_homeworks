@@ -9,4 +9,7 @@ void inputArray(int* numbers, int sizeOfArray);
 
 void outputArray(int* numbers, int sizeOfArray);
 
+//creates and initializes a new string
+char* createString();
+
 #endif //SPBU_2020_C_ARRAYOPERATIONS_H
