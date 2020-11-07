@@ -40,12 +40,29 @@ int main()
         printf("\nSomething went wrong with 'exists()'\n");
     }
 
+    printf("\nYour tree also can de represented by in-order traversal:\n");
+    printTreeInOrder(tree);
+    printf("\nOr by post-order traversal:\n");
+    printTreePostOrder(tree);
+
     removeFromTree(tree, -2);
     printf("\nNumber '-2' removed:\n");
     printTreePreOrder(tree);
 
     removeFromTree(tree, 12);
     printf("\nNumber '12' removed:\n");
+    printTreePreOrder(tree);
+
+    removeFromTree(tree, 9);
+    printf("\nNumber '9' removed:\n");
+    printTreePreOrder(tree);
+
+    removeFromTree(tree, 7);
+    printf("\nNumber '7' removed:\n");
+    printTreePreOrder(tree);
+
+    removeFromTree(tree, 1);
+    printf("\nNumber '1' removed:\n");
     printTreePreOrder(tree);
 
     removeFromTree(tree, 15);
@@ -56,6 +73,9 @@ int main()
     printTreeInOrder(tree);
     printf("\nOr by post-order traversal:\n");
     printTreePostOrder(tree);
+    removeFromTree(tree, 21);
+    printf("\nNumber '21' removed:\n");
+    printTreePreOrder(tree);
 
     freeTree(tree);
     return 0;

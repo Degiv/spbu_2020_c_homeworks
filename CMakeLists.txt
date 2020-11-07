@@ -14,7 +14,6 @@ set(SOURCE_LIB
     library/commonUtils/complexNumber.c
     library/commonUtils/binaryOperations.c
     library/commonUtils/BST.c
-    library/commonUtils/AVLTree.c
 )
 add_library(library ${SOURCE_LIB})
 
