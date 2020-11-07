@@ -263,7 +263,6 @@ void freeTree(BinarySearchTree* tree)
     free(tree);
 }
 
-
 //AVL tree
 
 struct AVLTree {
@@ -323,4 +322,3 @@ void freeAVLTree(AVLTree* tree)
     freeTree(tree->binarySearchTree);
     free(tree);
 }
-
