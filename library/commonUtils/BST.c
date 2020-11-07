@@ -1,7 +1,19 @@
 #include "BST.h"
+#include "AVLTree.h"
 
 #include <stdio.h>
 #include <stdlib.h>
+
+struct BinarySearchTreeNode {
+    int data;
+    int counter;
+    struct BinarySearchTreeNode* leftChild;
+    struct BinarySearchTreeNode* rightChild;
+};
+
+struct BinarySearchTree {
+    BinarySearchTreeNode* root;
+};
 
 BinarySearchTreeNode* createBinarySearchTreeNode(int data)
 {
@@ -250,3 +262,65 @@ void freeTree(BinarySearchTree* tree)
     }
     free(tree);
 }
+
+
+//AVL tree
+
+struct AVLTree {
+    BinarySearchTree* binarySearchTree;
+};
+
+AVLTree* createAVLTree()
+{
+    AVLTree* tree = (AVLTree*)malloc(sizeof(AVLTree));
+    tree->binarySearchTree = createBinarySearchTree();
+}
+
+bool isAVLEmpty(AVLTree* tree)
+{
+    return isEmpty(tree->binarySearchTree);
+}
+
+bool addToAVLTree(AVLTree* tree, int valueToAdd)
+{
+    bool isNew = addToTree(tree->binarySearchTree, valueToAdd);
+    return isNew;
+}
+
+bool removeFromAVLTree(AVLTree* tree, int valueToRemove)
+{
+    bool wasRemoved = removeFromTree(tree->binarySearchTree, valueToRemove);
+    return wasRemoved;
+}
+
+int countInAVLTree(AVLTree* tree, int valueToSearch)
+{
+    return countInTree(tree->binarySearchTree, valueToSearch);
+}
+
+bool existsInAVLTree(AVLTree* tree, int valueToSearch)
+{
+    return exists(tree->binarySearchTree, valueToSearch);
+}
+
+void printAVLTreePreOrder(AVLTree* tree)
+{
+    printTreePreOrder(tree->binarySearchTree);
+}
+
+void printAVLTreePostOrder(AVLTree* tree)
+{
+    printTreePostOrder(tree->binarySearchTree);
+}
+
+void printAVLTreeInOrder(AVLTree* tree)
+{
+    printTreeInOrder(tree->binarySearchTree);
+}
+
+void freeAVLTree(AVLTree* tree)
+{
+    freeTree(tree->binarySearchTree);
+    free(tree);
+}
+

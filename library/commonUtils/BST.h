@@ -3,16 +3,9 @@
 
 #include <stdbool.h>
 
-typedef struct BinarySearchTreeNode {
-    int data;
-    int counter;
-    struct BinarySearchTreeNode* leftChild;
-    struct BinarySearchTreeNode* rightChild;
-} BinarySearchTreeNode;
+typedef struct BinarySearchTreeNode BinarySearchTreeNode;
 
-typedef struct BinarySearchTree {
-    BinarySearchTreeNode* root;
-} BinarySearchTree;
+typedef struct BinarySearchTree BinarySearchTree;
 
 BinarySearchTree* createBinarySearchTree();
 
