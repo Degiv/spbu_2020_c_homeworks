@@ -1,6 +1,7 @@
 #include "BST.h"
 #include "AVLTree.h"
 
+#include "../../library/commonUtils/numericOperations.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -263,7 +264,9 @@ void freeTree(BinarySearchTree* tree)
     free(tree);
 }
 
-//AVL tree
+/**
+ * AVL tree implementation
+ */
 
 struct AVLTree {
     BinarySearchTree* binarySearchTree;
@@ -273,6 +276,7 @@ AVLTree* createAVLTree()
 {
     AVLTree* tree = (AVLTree*)malloc(sizeof(AVLTree));
     tree->binarySearchTree = createBinarySearchTree();
+    return tree;
 }
 
 bool isAVLEmpty(AVLTree* tree)
@@ -280,16 +284,159 @@ bool isAVLEmpty(AVLTree* tree)
     return isEmpty(tree->binarySearchTree);
 }
 
+int getHeight(BinarySearchTreeNode* node)
+{
+    if (node == NULL) {
+        return 0;
+    }
+    int heightLeft = getHeight(node->leftChild);
+    int heightRight = getHeight(node->rightChild);
+    return max(heightLeft, heightRight) + 1;
+}
+
+int getBalanceFactor(BinarySearchTreeNode* node)
+{
+    return getHeight(node->rightChild) - getHeight(node->leftChild);
+}
+
+BinarySearchTreeNode* rotateRight(BinarySearchTreeNode* root)
+{
+    BinarySearchTreeNode* pivot = root->leftChild;
+    root->leftChild = pivot->rightChild;
+    pivot->rightChild = root;
+    return pivot;
+}
+
+BinarySearchTreeNode* rotateLeft(BinarySearchTreeNode* root)
+{
+    BinarySearchTreeNode* pivot = root->rightChild;
+    root->rightChild = pivot->leftChild;
+    pivot->leftChild = root;
+    return pivot;
+}
+
+BinarySearchTreeNode* balanceNode(BinarySearchTreeNode* root)
+{
+    if (getBalanceFactor(root) == 2) {
+        if (getBalanceFactor(root->rightChild) < 0) {
+            root->rightChild = rotateRight(root->rightChild);
+        }
+        return rotateLeft(root);
+    }
+    if (getBalanceFactor(root) == -2) {
+        if (getBalanceFactor(root->leftChild) > 0) {
+            root->leftChild = rotateLeft(root->leftChild);
+        }
+        return rotateRight(root);
+    }
+    return root;
+}
+
+bool addToAVLTreeRecursive(BinarySearchTreeNode** current, int valueToAdd)
+{
+    if ((*current) == NULL) {
+        (*current) = createBinarySearchTreeNode(valueToAdd);
+        return true;
+    }
+
+    if ((*current)->data == valueToAdd) {
+        (*current)->counter++;
+        return false;
+    }
+
+    if ((*current)->data > valueToAdd) {
+        bool isNew = addToTreeRecursive(&((*current)->leftChild), valueToAdd);
+        if (isNew) {
+            *current = balanceNode(*current);
+        }
+        return isNew;
+    }
+
+    if ((*current)->data < valueToAdd) {
+        bool isNew = addToTreeRecursive(&((*current)->rightChild), valueToAdd);
+        if (isNew) {
+            *current = balanceNode(*current);
+        }
+        return isNew;
+    }
+}
+
 bool addToAVLTree(AVLTree* tree, int valueToAdd)
 {
-    bool isNew = addToTree(tree->binarySearchTree, valueToAdd);
-    return isNew;
+    return addToAVLTreeRecursive(&(tree->binarySearchTree->root), valueToAdd);
+}
+
+void removeAVLNode(BinarySearchTreeNode** nodeToRemove);
+
+void removeCompleteAVLNode(BinarySearchTreeNode** nodeToRemove)
+{
+    BinarySearchTreeNode** nodeForReplace = &((*nodeToRemove)->leftChild);
+    while ((*nodeForReplace)->rightChild != NULL) {
+        nodeForReplace = &(*nodeForReplace)->rightChild;
+    }
+    (*nodeToRemove)->data = (*nodeForReplace)->data;
+    (*nodeToRemove)->counter = (*nodeForReplace)->counter;
+    removeAVLNode(nodeForReplace);
+}
+
+void removeAVLNode(BinarySearchTreeNode** nodeToRemove)
+{
+    if (isLeaf(*nodeToRemove)) {
+        removeIncompleteNode(nodeToRemove, NULL);
+        *nodeToRemove = balanceNode(*nodeToRemove);
+        return;
+    }
+
+    if ((*nodeToRemove)->leftChild == NULL) {
+        removeIncompleteNode(nodeToRemove, (*nodeToRemove)->rightChild);
+        *nodeToRemove = balanceNode(*nodeToRemove);
+        return;
+    }
+
+    if ((*nodeToRemove)->rightChild == NULL) {
+        removeIncompleteNode(nodeToRemove, (*nodeToRemove)->leftChild);
+        *nodeToRemove = balanceNode(*nodeToRemove);
+        return;
+    }
+
+    removeCompleteAVLNode(nodeToRemove);
+    *nodeToRemove = balanceNode(*nodeToRemove);
+}
+
+bool removeFromAVLTreeRecursive(BinarySearchTreeNode** current, int valueToRemove)
+{
+    if ((*current) == NULL) {
+        return false;
+    }
+
+    if ((*current)->data == valueToRemove) {
+        (*current)->counter--;
+        if ((*current)->counter == 0) {
+            removeNode(current);
+        }
+        return true;
+    }
+
+    if ((*current)->data > valueToRemove) {
+        if (removeFromAVLTreeRecursive(&((*current)->leftChild), valueToRemove)) {
+            *current = balanceNode(*current);
+            return true;
+        }
+        return false;
+    }
+
+    if ((*current)->data < valueToRemove) {
+        if (removeFromAVLTreeRecursive(&((*current)->rightChild), valueToRemove)) {
+            *current = balanceNode(*current);
+            return true;
+        }
+        return false;
+    }
 }
 
 bool removeFromAVLTree(AVLTree* tree, int valueToRemove)
 {
-    bool wasRemoved = removeFromTree(tree->binarySearchTree, valueToRemove);
-    return wasRemoved;
+    return removeFromAVLTreeRecursive(&(tree->binarySearchTree->root), valueToRemove);
 }
 
 int countInAVLTree(AVLTree* tree, int valueToSearch)
