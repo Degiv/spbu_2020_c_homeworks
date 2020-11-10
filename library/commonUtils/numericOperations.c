@@ -33,3 +33,15 @@ int factorialIterative(int x)
     }
     return factorial;
 }
+
+int getFibonacciNumber(int index)
+{
+    int previous = 1;
+    int current = 0;
+    for (int i = 0; i < index; ++i) {
+        int exCurrent = current;
+        current += previous;
+        previous = exCurrent;
+    }
+    return current;
+}
