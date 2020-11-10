@@ -4,7 +4,7 @@
 
 void rewriteFiltered(char nameFrom[], char nameTo[], int min, int max)
 {
-    FILE* fileF = fopen("f.txt", "r");
+    FILE* fileF = fopen(nameFrom, "r");
     FILE* fileG = fopen(nameTo, "a");
     int current = 0;
     while (fscanf(fileF, "%d", &current) != EOF) {
