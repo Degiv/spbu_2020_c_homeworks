@@ -44,6 +44,8 @@ add_executable(hw4.3 homework_4/hw4.3/main.c)
 target_link_libraries(hw4.3 library)
 add_executable(hw4.2 homework_4/hw4.2/main.c)
 target_link_libraries(hw4.2 library)
+add_executable(test2.1 test_2/test2.1/main.c)
+target_link_libraries(test2.1 library)
 
 add_executable(test1.1 test_1/test1.1/main.c)
 target_link_libraries(test1.1 library)

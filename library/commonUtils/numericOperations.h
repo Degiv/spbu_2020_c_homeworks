@@ -7,5 +7,6 @@ int max(int a, int b);
 int factorialRecursive(int x);
 int factorialIterative(int x);
 void swap(int* a, int* b);
+int getFibonacciNumber(int index);
 
 #endif //SPBU_2020_C_NUMERICOPERATIONS_H
